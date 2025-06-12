@@ -50,10 +50,10 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4" style={{ color: colors.text.dark }}>Kontakt</h3>
             <ul className="space-y-2">
               <li className="text-sm text-gray-600">
-                <span className="font-medium">E-Mail:</span> info@liberdade-ai.de
+                <span className="font-medium">E-Mail:</span> info@liberade.ai
               </li>
               <li className="text-sm text-gray-600">
-                <span className="font-medium">Telefon:</span> +49 123 456789
+                <span className="font-medium">Telefon:</span> +49 170 268 1111
               </li>
             </ul>
           </div>

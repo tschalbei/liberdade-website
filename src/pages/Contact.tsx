@@ -108,7 +108,7 @@ const Contact = () => {
                     </h3>
                     
                     <p className="text-gray-600">
-                      info@liberdade-ai.de
+                      info@liberade.ai
                     </p>
                   </div>
                 </div>
@@ -129,7 +129,7 @@ const Contact = () => {
                     </h3>
                     
                     <p className="text-gray-600">
-                      +49 123 456789
+                      +49 170 268 1111
                     </p>
                   </div>
                 </div>
