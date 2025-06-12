@@ -23,7 +23,11 @@ const Home = () => {
       <section 
         className="relative h-screen flex items-center"
         style={{ 
-          background: `linear-gradient(135deg, ${colors.primary}22, ${colors.accent}33)`,
+          background: `linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5))`,
+          backgroundImage: `url('/images/ki_header.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundBlendMode: 'overlay',
           minHeight: '600px'
         }}
       >
@@ -42,16 +46,14 @@ const Home = () => {
             variants={staggerContainer}
           >
             <motion.h1 
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
-              style={{ color: colors.text.dark }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white"
               variants={fadeIn}
             >
               KI-Lösungen für Ihr Unternehmen
             </motion.h1>
             
             <motion.p 
-              className="text-xl md:text-2xl mb-8"
-              style={{ color: colors.text.dark }}
+              className="text-xl md:text-2xl mb-8 text-white"
               variants={fadeIn}
             >
               Maßgeschneiderte KI-Dienstleistungen von Liberdade AI
@@ -113,28 +115,44 @@ const Home = () => {
       {/* Introduction Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="text-center max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold mb-6" style={{ color: colors.text.dark }}>
-              Über Liberdade AI
-            </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <motion.div 
+              className="text-center md:text-left"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-bold mb-6" style={{ color: colors.text.dark }}>
+                Über Liberdade AI
+              </h2>
+              
+              <p className="text-lg text-gray-600 mb-8">
+                Liberdade AI ist Ihre Agentur für maßgeschneiderte KI-Lösungen. Wir kombinieren tiefgreifendes Fachwissen in künstlicher Intelligenz mit einem klaren Fokus auf Ihre geschäftlichen Anforderungen, um innovative und effektive Lösungen zu entwickeln.
+              </p>
+              
+              <div className="inline-block md:block">
+                <div 
+                  className="h-1 w-20 mx-auto md:mx-0 rounded"
+                  style={{ backgroundColor: colors.accent }}
+                ></div>
+              </div>
+            </motion.div>
             
-            <p className="text-lg text-gray-600 mb-8">
-              Liberdade AI ist Ihre Agentur für maßgeschneiderte KI-Lösungen. Wir kombinieren tiefgreifendes Fachwissen in künstlicher Intelligenz mit einem klaren Fokus auf Ihre geschäftlichen Anforderungen, um innovative und effektive Lösungen zu entwickeln.
-            </p>
-            
-            <div className="inline-block">
-              <div 
-                className="h-1 w-20 mx-auto rounded"
-                style={{ backgroundColor: colors.accent }}
-              ></div>
-            </div>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="rounded-lg overflow-hidden shadow-xl"
+            >
+              <img 
+                src="/images/ki_visualization.png" 
+                alt="KI Visualisierung" 
+                className="w-full h-auto"
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -171,13 +189,12 @@ const Home = () => {
                 style={{ backgroundColor: colors.primary }}
               ></div>
               <div className="p-6">
-                <div 
-                  className="w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto"
-                  style={{ backgroundColor: `${colors.primary}22` }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke={colors.primary}>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                  </svg>
+                <div className="mb-6 h-48 overflow-hidden rounded-lg">
+                  <img 
+                    src="/images/ki_header.jpg" 
+                    alt="LLM Integration" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 
                 <h3 className="text-xl font-semibold mb-3 text-center" style={{ color: colors.text.dark }}>
@@ -203,13 +220,12 @@ const Home = () => {
                 style={{ backgroundColor: colors.accent }}
               ></div>
               <div className="p-6">
-                <div 
-                  className="w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto"
-                  style={{ backgroundColor: `${colors.accent}22` }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke={colors.accent}>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                  </svg>
+                <div className="mb-6 h-48 overflow-hidden rounded-lg">
+                  <img 
+                    src="/images/ki_agents.jpg" 
+                    alt="KI Agenten" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 
                 <h3 className="text-xl font-semibold mb-3 text-center" style={{ color: colors.text.dark }}>
@@ -235,13 +251,12 @@ const Home = () => {
                 style={{ backgroundColor: colors.primary }}
               ></div>
               <div className="p-6">
-                <div 
-                  className="w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto"
-                  style={{ backgroundColor: `${colors.primary}22` }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke={colors.primary}>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
+                <div className="mb-6 h-48 overflow-hidden rounded-lg">
+                  <img 
+                    src="/images/generative_ai.webp" 
+                    alt="Generative KI" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 
                 <h3 className="text-xl font-semibold mb-3 text-center" style={{ color: colors.text.dark }}>
@@ -356,11 +371,11 @@ const Home = () => {
               </div>
               
               <h3 className="text-lg font-semibold mb-2" style={{ color: colors.text.dark }}>
-                Effizient
+                Effizienz
               </h3>
               
               <p className="text-gray-600 text-center">
-                Schnelle Implementierung und messbare Ergebnisse für Ihr Unternehmen.
+                Optimierte Prozesse und schnelle Implementierung für maximale Effizienz.
               </p>
             </motion.div>
             
@@ -377,16 +392,16 @@ const Home = () => {
                 style={{ backgroundColor: `${colors.accent}22` }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke={colors.accent}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               
               <h3 className="text-lg font-semibold mb-2" style={{ color: colors.text.dark }}>
-                Zukunftssicher
+                ROI-Fokus
               </h3>
               
               <p className="text-gray-600 text-center">
-                Immer auf dem neuesten Stand der KI-Technologie für langfristigen Erfolg.
+                Klarer Fokus auf messbaren Return on Investment für Ihr Unternehmen.
               </p>
             </motion.div>
           </div>
@@ -409,20 +424,28 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl font-bold mb-6 text-white">
-              Bereit für die KI-Revolution?
+              Bereit für den nächsten Schritt?
             </h2>
             
             <p className="text-xl text-white mb-8 max-w-3xl mx-auto">
-              Kontaktieren Sie uns noch heute, um zu besprechen, wie wir Ihr Unternehmen mit KI-Lösungen unterstützen können.
+              Kontaktieren Sie uns noch heute für ein unverbindliches Beratungsgespräch.
             </p>
             
-            <Link 
-              to="/contact" 
-              className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-lg bg-white hover:bg-gray-100 transition-all"
-              style={{ color: colors.primary }}
-            >
-              Kontakt aufnehmen
-            </Link>
+            <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+              <Link 
+                to="/contact" 
+                className="px-8 py-3 rounded-md text-white font-medium shadow-lg hover:shadow-xl transition-all border-2 border-white hover:bg-white hover:text-gray-800"
+              >
+                Kontakt aufnehmen
+              </Link>
+              
+              <Link 
+                to="/appointment" 
+                className="px-8 py-3 rounded-md font-medium shadow-lg hover:shadow-xl transition-all bg-white text-gray-800 hover:bg-gray-100"
+              >
+                Termin vereinbaren
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

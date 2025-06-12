@@ -108,7 +108,7 @@ const Contact = () => {
                     </h3>
                     
                     <p className="text-gray-600">
-                      info@liberade.ai
+                      info@liberdade.ai
                     </p>
                   </div>
                 </div>
