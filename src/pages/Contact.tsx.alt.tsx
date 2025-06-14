@@ -21,73 +21,23 @@ const Contact = () => {
     }));
   };
   
-// Fügen Sie diese Zeilen zu Ihren anderen useState-Hooks am Anfang der Komponente hinzu:
-const [isSubmitting, setIsSubmitting] = useState(false);
-const [submitError, setSubmitError] = useState<string | null>(null);
-
-// Ersetzen Sie Ihre komplette alte handleSubmit-Funktion durch diese hier:
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
-  setSubmitError(null);
-
-  try {
-    // Rufe DEINE EIGENE API auf. Der Pfad ist einfach, da sie auf der gleichen Domain liegt.
-    const response = await fetch('/api/send-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      // Wir senden nur die Formulardaten, keine SMTP-Details!
-      body: JSON.stringify(formData),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      // Fehlermeldung vom Server anzeigen
-      throw new Error(result.message || 'Ein unbekannter Fehler ist aufgetreten.');
-    }
-    
-    // Alles hat geklappt, zeige die "Vielen Dank"-Nachricht
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In a real implementation, this would send the form data to a backend
+    console.log('Form submitted:', formData);
     setFormSubmitted(true);
-    setFormData({ name: '', email: '', subject: '', message: '' }); // Formular zurücksetzen
-
-    // "Vielen Dank"-Nachricht nach 5 Sekunden ausblenden
+    setFormData({
+      name: '',
+      email: '',
+      subject: '',
+      message: ''
+    });
+    
+    // Reset form submission status after 5 seconds
     setTimeout(() => {
       setFormSubmitted(false);
     }, 5000);
-
-  } catch (error) {
-    if (error instanceof Error) {
-      setSubmitError(`Fehler: ${error.message}`);
-    } else {
-      setSubmitError('Ein unbekannter Fehler ist aufgetreten.');
-    }
-  } finally {
-    setIsSubmitting(false); // Ladezustand beenden, egal ob Erfolg oder Fehler
-  }
-};
-
-// ... der Rest Ihrer Komponente (return ...)
-
-// Innerhalb des <form>...</form> Blocks:
-// Passen Sie Ihren Senden-Button an und fügen Sie eine Fehleranzeige hinzu:
-
-<button
-  type="submit"
-  disabled={isSubmitting} // Verhindert mehrfaches Klicken
-  className="w-full px-6 py-3 rounded-md text-white font-medium shadow-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-  style={{ backgroundColor: colors.primary }}
->
-  {isSubmitting ? 'Wird gesendet...' : 'Nachricht senden'}
-</button>
-
-{submitError && (
-  <p className="mt-4 text-sm text-center text-red-600">
-    {submitError}
-  </p>
-)}
+  };
 
   return (
     <div className="pt-16">

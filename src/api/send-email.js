@@ -1,33 +1,40 @@
-// Server-side API endpoint for sending emails
-// This would be implemented in a backend service or serverless function
+// /api/send-email.js
 
 import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
+  // Nur POST-Anfragen erlauben
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });
   }
 
-  const { name, email, subject, message, smtp } = req.body;
+  // Formulardaten aus der Anfrage holen
+  const { name, email, subject, message } = req.body;
+  
+  // Prüfen, ob alle Felder ausgefüllt sind
+  if (!name || !email || !subject || !message) {
+    return res.status(400).json({ success: false, message: 'Bitte alle Felder ausfüllen.' });
+  }
 
-  // Create a transporter
+  // Transporter-Objekt mit den Daten aus den Umgebungsvariablen erstellen
+  // Diese Daten sind für den Besucher NICHT sichtbar.
   const transporter = nodemailer.createTransport({
-    host: smtp.host,
-    port: smtp.port,
-    secure: smtp.secure,
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: true, // true für Port 465
     auth: {
-      user: smtp.auth.user,
-      pass: process.env.SMTP_PASSWORD // Password should be stored in environment variables
-    }
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS, // Das Passwort
+    },
   });
 
   try {
-    // Send email
+    // E-Mail senden
     await transporter.sendMail({
-      from: `"${name}" <${smtp.auth.user}>`,
-      to: smtp.recipient,
-      subject: `Kontaktformular: ${subject}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nNachricht:\n${message}`,
+      from: `"${name}" <${process.env.SMTP_USER}>`, // Absender ist Ihre Mailer-Adresse
+      to: process.env.EMAIL_RECIPIENT, // Empfänger
+      replyTo: email, // Setzt die "Antworten an"-Adresse auf die des Nutzers
+      subject: `Webseite-Kontakt: ${subject}`,
       html: `
         <h3>Neue Nachricht vom Kontaktformular</h3>
         <p><strong>Name:</strong> ${name}</p>
@@ -38,9 +45,10 @@ export default async function handler(req, res) {
       `
     });
 
-    return res.status(200).json({ success: true, message: 'Email sent successfully' });
+    return res.status(200).json({ success: true, message: 'Email erfolgreich gesendet.' });
+
   } catch (error) {
-    console.error('Error sending email:', error);
-    return res.status(500).json({ success: false, message: 'Failed to send email' });
+    console.error('Fehler beim Senden der E-Mail:', error);
+    return res.status(500).json({ success: false, message: 'E-Mail konnte nicht gesendet werden.' });
   }
 }
