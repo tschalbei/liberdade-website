@@ -108,7 +108,13 @@ const Contact = () => {
                     </h3>
                     
                     <p className="text-gray-600">
-                      info@liberdade.ai
+                      <a 
+                        href="mailto:info@liberdade.ai" 
+                        className="hover:text-gray-900 hover:underline transition-colors"
+                        aria-label="E-Mail an info@liberdade.ai senden"
+                      >
+                        info@liberdade.ai
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -129,7 +135,13 @@ const Contact = () => {
                     </h3>
                     
                     <p className="text-gray-600">
-                      +49 170 268 1111
+                      <a 
+                        href="tel:+4917026811111" 
+                        className="hover:text-gray-900 hover:underline transition-colors"
+                        aria-label="Anrufen unter +49 170 268 1111"
+                      >
+                        +49 170 268 1111
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -307,29 +319,39 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            {/* This would be a real map in production */}
-            <div className="bg-gray-200 h-96 w-full flex items-center justify-center">
-              <div className="text-center">
-                <div 
-                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                  style={{ backgroundColor: `${colors.primary}33` }}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke={colors.primary}>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                
-                <h3 className="text-xl font-semibold mb-2" style={{ color: colors.text.dark }}>
-                  Liberdade AI
-                </h3>
-                
-                <p className="text-gray-600">
-                  Musterstraße 123<br />
-                  12345 Musterstadt<br />
-                  Deutschland
-                </p>
+            {/* Google Maps iframe for Schöffengasse 21, 41751 Viersen */}
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2498.5631506559377!2d6.3889889!3d51.2556499!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8ac1e56fb51e3%3A0x9dd5709c7889e9e0!2sSch%C3%B6ffengasse%2021%2C%2041751%20Viersen%2C%20Germany!5e0!3m2!1sen!2sus!4v1718348512345!5m2!1sen!2sus" 
+              width="100%" 
+              height="450" 
+              style={{ border: 0 }} 
+              allowFullScreen={true} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Liberdade AI Standort"
+              className="w-full h-96"
+            ></iframe>
+            
+            <div className="bg-white p-6 text-center">
+              <div 
+                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                style={{ backgroundColor: `${colors.primary}33` }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke={colors.primary}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
               </div>
+              
+              <h3 className="text-xl font-semibold mb-2" style={{ color: colors.text.dark }}>
+                Liberdade AI
+              </h3>
+              
+              <p className="text-gray-600">
+                Schöffengasse 21<br />
+                41751 Viersen<br />
+                Deutschland
+              </p>
             </div>
           </motion.div>
         </div>
@@ -360,13 +382,9 @@ const Contact = () => {
             
             <Link 
               to="/appointment" 
-              className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-lg bg-white hover:bg-gray-100 transition-all"
-              style={{ color: colors.primary }}
+              className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-lg bg-white text-gray-800 hover:bg-gray-100 transition-all"
             >
               Termin vereinbaren
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
             </Link>
           </motion.div>
         </div>

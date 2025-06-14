@@ -50,10 +50,24 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4" style={{ color: colors.text.dark }}>Kontakt</h3>
             <ul className="space-y-2">
               <li className="text-sm text-gray-600">
-                <span className="font-medium">E-Mail:</span> info@liberdade.ai
+                <span className="font-medium">E-Mail:</span>{' '}
+                <a 
+                  href="mailto:info@liberdade.ai" 
+                  className="hover:text-gray-900 hover:underline transition-colors"
+                  aria-label="E-Mail an info@liberdade.ai senden"
+                >
+                  info@liberdade.ai
+                </a>
               </li>
               <li className="text-sm text-gray-600">
-                <span className="font-medium">Telefon:</span> +49 170 268 1111
+                <span className="font-medium">Telefon:</span>{' '}
+                <a 
+                  href="tel:+4917026811111" 
+                  className="hover:text-gray-900 hover:underline transition-colors"
+                  aria-label="Anrufen unter +49 170 268 1111"
+                >
+                  +49 170 268 1111
+                </a>
               </li>
             </ul>
           </div>
