@@ -69,6 +69,22 @@ const Footer = () => {
                   +49 170 268 1111
                 </a>
               </li>
+              <li className="text-sm text-gray-600">
+                <Link 
+                  to="/impressum" 
+                  className="hover:text-gray-900 hover:underline transition-colors"
+                >
+                  Impressum
+                </Link>
+              </li>
+              <li className="text-sm text-gray-600">
+                <Link 
+                  to="/datenschutz" 
+                  className="hover:text-gray-900 hover:underline transition-colors"
+                >
+                  Datenschutz
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
