@@ -14,7 +14,7 @@ export const sendEmail = async (data: EmailData): Promise<{ success: boolean; me
     // In a real implementation, this would use a backend API or serverless function
     // to send the email using nodemailer
     
-    const response = await fetch('/api/send-email', {
+    const response = await fetch('/.netlify/functions/send-email', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

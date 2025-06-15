@@ -33,7 +33,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   try {
     // Rufe DEINE EIGENE API auf. Der Pfad ist einfach, da sie auf der gleichen Domain liegt.
-    const response = await fetch('/api/send-email', {
+    const response = await fetch('/.netlify/functions/send-email', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
