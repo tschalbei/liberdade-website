@@ -1,39 +1,46 @@
-// /api/send-email.js
+// netlify/functions/send-email.js
 
 import nodemailer from 'nodemailer';
 
-export default async function handler(req, res) {
+// Die Handler-Funktion für Netlify. Beachten Sie "event" anstelle von "req".
+export async function handler(event) {
   // Nur POST-Anfragen erlauben
-  if (req.method !== 'POST') {
-    return res.status(405).json({ success: false, message: 'Method not allowed' });
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ message: 'Method Not Allowed' }),
+    };
   }
-
-  // Formulardaten aus der Anfrage holen
-  const { name, email, subject, message } = req.body;
-  
-  // Prüfen, ob alle Felder ausgefüllt sind
-  if (!name || !email || !subject || !message) {
-    return res.status(400).json({ success: false, message: 'Bitte alle Felder ausfüllen.' });
-  }
-
-  // Transporter-Objekt mit den Daten aus den Umgebungsvariablen erstellen
-  // Diese Daten sind für den Besucher NICHT sichtbar.
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    secure: true, // true für Port 465
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS, // Das Passwort
-    },
-  });
 
   try {
+    // Die Daten aus dem Body der Anfrage auslesen und parsen
+    const data = JSON.parse(event.body);
+    const { name, email, subject, message } = data;
+
+    // Prüfen, ob alle Felder ausgefüllt sind
+    if (!name || !email || !subject || !message) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ success: false, message: 'Bitte alle Felder ausfüllen.' }),
+      };
+    }
+
+    // Transporter-Objekt mit den Daten aus den Umgebungsvariablen erstellen
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      secure: true, // true für Port 465
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
     // E-Mail senden
     await transporter.sendMail({
-      from: `"${name}" <${process.env.SMTP_USER}>`, // Absender ist Ihre Mailer-Adresse
-      to: process.env.EMAIL_RECIPIENT, // Empfänger
-      replyTo: email, // Setzt die "Antworten an"-Adresse auf die des Nutzers
+      from: `"${name}" <${process.env.SMTP_USER}>`,
+      to: process.env.EMAIL_RECIPIENT,
+      replyTo: email,
       subject: `Webseite-Kontakt: ${subject}`,
       html: `
         <h3>Neue Nachricht vom Kontaktformular</h3>
@@ -44,11 +51,20 @@ export default async function handler(req, res) {
         <p>${message.replace(/\n/g, '<br>')}</p>
       `
     });
-
-    return res.status(200).json({ success: true, message: 'Email erfolgreich gesendet.' });
+    
+    // Dies ist das korrekte Antwortformat für Netlify Functions
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ success: true, message: 'Email erfolgreich gesendet.' }),
+    };
 
   } catch (error) {
-    console.error('Fehler beim Senden der E-Mail:', error);
-    return res.status(500).json({ success: false, message: 'E-Mail konnte nicht gesendet werden.' });
+    // Loggen Sie den Fehler im Netlify Functions Log für die Fehlersuche
+    console.error('Fehler in der send-email Funktion:', error);
+
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ success: false, message: 'E-Mail konnte nicht gesendet werden.' }),
+    };
   }
 }
