@@ -71,24 +71,20 @@ const About = () => {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <div 
-                className="rounded-lg shadow-xl overflow-hidden aspect-square"
-                style={{ 
-                  background: `linear-gradient(135deg, ${colors.primary}22, ${colors.accent}33)`,
-                  border: `1px solid ${colors.primary}22`
-                }}
-              >
-                <div className="p-8 h-full flex flex-col justify-center items-center">
-                  <div 
-                    className="w-32 h-32 rounded-full flex items-center justify-center mb-8"
-                    style={{ backgroundColor: `${colors.primary}22` }}
-                  >
+              <div className="rounded-lg overflow-hidden relative">
+                <img 
+                  src="/images/about_us_philosophy.webp" 
+                  alt="liberdade AI Philosophy" 
+                  className="w-full h-full object-cover" 
+                />
+                <div className="absolute inset-0 bg-black/10 flex flex-col justify-center items-center p-8">
+                  <div className="w-32 h-32 rounded-full flex items-center justify-center mb-8" style={{ backgroundColor: `${colors.primary}99` }}>
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <span style={{ color: colors.primary }} className="text-4xl font-bold">
+                      <span style={{ color: 'white' }} className="text-4xl font-bold">
                         liberdade
                       </span>
                       <span style={{ color: colors.accent }} className="text-4xl font-bold ml-2">
@@ -98,14 +94,14 @@ const About = () => {
                   </div>
                   
                   <div className="text-center">
-                    <p className="text-xl italic text-gray-600 mb-4">
+                    <p className="text-xl italic text-white mb-4">
                       "KI für mehr Freiheit und Innovation"
                     </p>
                     
                     <div 
                       className="h-1 w-20 mx-auto rounded"
                       style={{ backgroundColor: colors.accent }}
-                    ></div>
+                    />
                   </div>
                 </div>
               </div>
