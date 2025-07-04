@@ -10,6 +10,9 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    // Log incoming request body for debugging
+    console.log('Received request body:', event.body);
+
     const { name, email, subject, message } = JSON.parse(event.body);
 
     // Validate required fields
@@ -23,6 +26,14 @@ exports.handler = async (event, context) => {
       };
     }
 
+    // Log environment variables for debugging
+    console.log('SMTP Configuration:', {
+      SMTP_HOST: process.env.SMTP_HOST,
+      SMTP_PORT: process.env.SMTP_PORT,
+      SMTP_USER: process.env.SMTP_USER,
+      EMAIL_RECIPIENT: process.env.EMAIL_RECIPIENT
+    });
+
     // Create transporter using environment variables
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -33,6 +44,17 @@ exports.handler = async (event, context) => {
         pass: process.env.SMTP_PASS,
       },
     });
+
+    // Validate transporter configuration
+    if (!transporter) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ 
+          success: false, 
+          message: 'SMTP Transporter konnte nicht erstellt werden.' 
+        }),
+      };
+    }
 
     // Email content
     const mailOptions = {
@@ -65,24 +87,44 @@ exports.handler = async (event, context) => {
     };
 
     // Send email
-    await transporter.sendMail(mailOptions);
-
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ 
-        success: true, 
-        message: 'E-Mail wurde erfolgreich gesendet!' 
-      }),
-    };
-
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Email sent:', info.response);
+      
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ 
+          success: true, 
+          message: 'E-Mail wurde erfolgreich gesendet!' 
+        }),
+      };
+    } catch (sendError) {
+      console.error('Error sending email:', sendError);
+      
+      // Try to get more specific error information
+      let errorMessage = 'Fehler beim Senden der E-Mail. Bitte versuchen Sie es später erneut.';
+      if (sendError.response) {
+        errorMessage = `Fehler beim Senden: ${sendError.response}`;
+      } else if (sendError.message) {
+        errorMessage = `Fehler: ${sendError.message}`;
+      }
+      
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ 
+          success: false, 
+          message: errorMessage
+        }),
+      };
+    }
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Unexpected error:', error);
     
     return {
       statusCode: 500,
       body: JSON.stringify({ 
         success: false, 
-        message: 'Fehler beim Senden der E-Mail. Bitte versuchen Sie es später erneut.' 
+        message: 'Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.'
       }),
     };
   }
