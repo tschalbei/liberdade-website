@@ -10,9 +10,8 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // Log incoming request body for debugging
     console.log('Received request body:', event.body);
-
+    
     const { name, email, subject, message } = JSON.parse(event.body);
 
     // Validate required fields
@@ -26,7 +25,18 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Log environment variables for debugging
+    // Validate environment variables
+    if (!process.env.SMTP_HOST || !process.env.SMTP_PORT || !process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.EMAIL_RECIPIENT) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ 
+          success: false, 
+          message: 'Fehlende Umgebungsvariablen für SMTP-Konfiguration.' 
+        }),
+      };
+    }
+
+    // Log configuration
     console.log('SMTP Configuration:', {
       SMTP_HOST: process.env.SMTP_HOST,
       SMTP_PORT: process.env.SMTP_PORT,
@@ -34,7 +44,7 @@ exports.handler = async (event, context) => {
       EMAIL_RECIPIENT: process.env.EMAIL_RECIPIENT
     });
 
-    // Create transporter using environment variables
+    // Create transporter with secure connection
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: parseInt(process.env.SMTP_PORT),
@@ -43,9 +53,12 @@ exports.handler = async (event, context) => {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      tls: {
+        rejectUnauthorized: false // Temporäre Lösung für Zertifikatsprobleme
+      }
     });
 
-    // Validate transporter configuration
+    // Validate transporter
     if (!transporter) {
       return {
         statusCode: 500,

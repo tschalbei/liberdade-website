@@ -1,3 +1,5 @@
+import { API_CONFIG } from '../config';
+
 // Email service for sending contact form messages via Netlify Functions
 // Uses Netlify Functions with environment variables for SMTP configuration
 
@@ -10,8 +12,8 @@ interface EmailData {
 
 export const sendEmail = async (data: EmailData): Promise<{ success: boolean; message: string }> => {
   try {
-    // Call Netlify Function for sending emails
-    const response = await fetch('/.netlify/functions/send-email', {
+    // Call email sending function
+    const response = await fetch(`${window.location.origin}${API_CONFIG.baseUrl}/send-email`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
