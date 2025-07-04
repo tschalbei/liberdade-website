@@ -1,0 +1,47 @@
+/* Add custom styles for react-calendar */
+.calendar-container .react-calendar {
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid var(--calendar-border-color);
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.calendar-container .react-calendar__tile:enabled:hover,
+.calendar-container .react-calendar__tile:enabled:focus {
+  background-color: var(--calendar-tile-hover);
+}
+
+.calendar-container .react-calendar__tile--active {
+  background-color: var(--calendar-active-bg) !important;
+}
+
+.calendar-container .react-calendar__navigation button:enabled:hover,
+.calendar-container .react-calendar__navigation button:enabled:focus {
+  background-color: var(--calendar-tile-hover);
+}
+
+/* Global styles */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Add padding to account for fixed navbar */
+main {
+  padding-top: 4rem;
+}
+
+/* Ensure footer is at the bottom */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
