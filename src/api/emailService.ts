@@ -17,7 +17,9 @@ export const sendEmail = async (data: EmailData): Promise<{ success: boolean; me
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify({
         name: data.name,
         email: data.email,

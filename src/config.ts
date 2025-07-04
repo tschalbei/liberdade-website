@@ -1,3 +1,5 @@
 export const API_CONFIG = {
-  baseUrl: '/.netlify/functions'
+  baseUrl: window.location.hostname === 'localhost' 
+    ? '/.netlify/functions'
+    : '/.netlify/functions'
 };
